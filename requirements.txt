@@ -1,1 +1,9 @@
 nltk
+pip install tqdm boto3 requests regex sentencepiece sacremoses
+filelock
+packaging
+pytorch-transformers
+pytorch-pretrained-bert
+tokenizers
+protobuf
+matplotlib
