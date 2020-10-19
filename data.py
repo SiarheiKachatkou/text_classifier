@@ -9,6 +9,8 @@ class TextDataset(object):
         with open(neg_text_corpus_path, 'rt') as file:
             self._neg_text_corpus = file.readlines()
 
+    def
+
 
 
 
