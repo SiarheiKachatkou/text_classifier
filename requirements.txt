@@ -7,3 +7,4 @@ pytorch-pretrained-bert
 tokenizers
 protobuf
 matplotlib
+sklearn

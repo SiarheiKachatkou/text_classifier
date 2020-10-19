@@ -10,7 +10,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     cfg = config_from_file(args.config)
 
-    dataset = TextDataset(cfg.pos_corpus_path, cfg.neg_corpus_path)
+    dataset = TextDataset(cfg)
 
     token_sets = dict()
 
