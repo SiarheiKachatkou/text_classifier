@@ -1,6 +1,7 @@
 import argparse
 import torch.multiprocessing as mp
 import numpy as np
+import sklearn
 from train_and_test import train_and_test
 from config_from_file import config_from_file
 from dataset import TextDataset
@@ -20,7 +21,7 @@ if __name__ == "__main__":
 
     if cfg.is_debug: #debug multiprocess code is pain
         for i in range(cfg.nfolds):
-            train_and_test(cfg, dataset, fold=i)
+            predictions, labels = train_and_test(cfg, dataset, fold=i)
     else:
         n_procs = mp.num_cpus()
         q=mp.Queue(n_procs)
@@ -32,9 +33,15 @@ if __name__ == "__main__":
             processes.append(p)
         for p in processes:
             p.join()
-        results=[]
+
+        predictions = []
+        labels = []
         for _ in range(n_procs):
-            results.append(np.array(q.get()))
-        results=np.stack(results,axis=0)
-        results=np.mean(results,axis=0)
-        print(results)
+            preds, labs = q.get()
+            predictions.extend(preds)
+            labels.extend(labs)
+
+    cm=sklearn.metrics.confusion_matrix(labels, predictions)
+    print(f' confusion matrix {cm}')
+    acc=sklearn.metrics.accuracy_score(labels, predictions)
+    print(f' accuracy {acc}')
