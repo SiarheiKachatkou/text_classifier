@@ -1,4 +1,3 @@
-import torch
 import numpy as np
 import copy
 from sklearn.model_selection import KFold
@@ -6,7 +5,7 @@ from sklearn.model_selection import KFold
 
 class TextDataset(object):
     def __init__(self, config ):
-        self._tokenizer = torch.hub.load('huggingface/pytorch-transformers', 'tokenizer', 'bert-base-cased')
+
         self.pos_text_corpus=self._load_corpus(config.pos_corpus_path)
         self.neg_text_corpus=self._load_corpus(config.neg_corpus_path)
         self._cfg = config
@@ -18,25 +17,10 @@ class TextDataset(object):
         labels = self.get_labels()
         self._sp = list(kf.split(labels))
 
-    def _tokenize(self, sent_list):
-
-        sent_list = [self._tokenizer.encode(sent,add_special_tokens=False) for sent in sent_list]
-        return sent_list
-
     def _load_corpus(self, path_to_corpus):
         with open(path_to_corpus, 'rt') as file:
             sent_list = file.readlines()
-            sent_list = self._tokenize(sent_list)
             return sent_list
-
-
-    def untokenize(self, token_or_list):
-        if not isinstance(token_or_list, (list,np.ndarray)):
-            tokens_list=[token_or_list]
-        else:
-            tokens_list=token_or_list
-
-        return self._tokenizer.decode(tokens_list)
 
     def get_X(self):
         return np.array(self.pos_text_corpus+self.neg_text_corpus)

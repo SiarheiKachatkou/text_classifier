@@ -1,5 +1,6 @@
 import abc
 from abc import abstractmethod
+import torch
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 class FeatureExtractor(abc.ABC):
@@ -37,6 +38,14 @@ class TFIDFFeatureExtractor(FeatureExtractor):
 class BERTFeatureExtractor(FeatureExtractor):
     def __init__(self):
         super().__init__()
+        self._tokenizer = torch.hub.load('huggingface/pytorch-transformers', 'tokenizer', 'bert-base-cased')
 
     def extract_feature(self, input):
         pass
+
+
+    def _tokenize(self, sent_list):
+
+        sent_list = [self._tokenizer.encode(sent,add_special_tokens=False) for sent in sent_list]
+        return sent_list
+
