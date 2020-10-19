@@ -59,8 +59,8 @@ class TextDataset(object):
         labels=labels[idxs]
 
         subset = copy.copy(self)
-        subset.pos_text_corpus=x[labels==1]
-        subset.neg_text_corpus=x[labels == 0]
+        subset.pos_text_corpus=list(x[labels==1])
+        subset.neg_text_corpus=list(x[labels == 0])
         return subset
 
 

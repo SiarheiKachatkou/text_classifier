@@ -16,19 +16,18 @@ if __name__ == "__main__":
     parser.add_argument('--config', type=str, help="path to config with parameters")
     args = parser.parse_args()
     cfg = config_from_file(args.config)
-    model_fn = None
     dataset = TextDataset(cfg)
 
     if cfg.is_debug: #debug multiprocess code is pain
         for i in range(cfg.nfolds):
-            train_and_test(model_fn, dataset, fold=i)
+            train_and_test(cfg, dataset, fold=i)
     else:
         n_procs = mp.num_cpus()
         q=mp.Queue(n_procs)
 
         processes = []
         for rank in range(n_procs):
-            p = mp.Process(target=run, args=(rank,q, model_fn, dataset))
+            p = mp.Process(target=run, args=(rank,q, cfg, dataset))
             p.start()
             processes.append(p)
         for p in processes:
