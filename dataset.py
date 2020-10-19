@@ -6,9 +6,10 @@ from sklearn.model_selection import KFold
 class TextDataset(object):
     def __init__(self, config ):
 
+        self._cfg = config
         self.pos_text_corpus=self._load_corpus(config.pos_corpus_path)
         self.neg_text_corpus=self._load_corpus(config.neg_corpus_path)
-        self._cfg = config
+
 
         self._build_fold_splits()
 
@@ -20,6 +21,8 @@ class TextDataset(object):
     def _load_corpus(self, path_to_corpus):
         with open(path_to_corpus, 'rt') as file:
             sent_list = file.readlines()
+            if self._cfg.is_debug:
+                sent_list=sent_list[:100]
             return sent_list
 
     def get_X(self):

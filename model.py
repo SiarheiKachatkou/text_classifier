@@ -12,7 +12,7 @@ class Model(object):
         self._classifier_head.fit(features,dataset.get_labels())
 
     def predict(self,dataset):
-        features = self._feature_extractor.fit_transform(dataset.get_X())
+        features = self._feature_extractor.transform(dataset.get_X())
         predictions=self._classifier_head.predict(features)
         return predictions
 

@@ -3,7 +3,7 @@ import torch.multiprocessing as mp
 import numpy as np
 from train_and_test import train_and_test
 from config_from_file import config_from_file
-from data import TextDataset
+from dataset import TextDataset
 
 
 def run(i,q, model_fn, dataset):

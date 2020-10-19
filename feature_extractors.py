@@ -32,7 +32,9 @@ class TFIDFFeatureExtractor(FeatureExtractor):
         return denselist
 
     def transform(self, text_tokenized):
-        return self._vectorizer.transform(text_tokenized)
+        vectors=self._vectorizer.transform(text_tokenized)
+        denselist=vectors.todense()
+        return denselist
 
 
 class BERTFeatureExtractor(FeatureExtractor):
