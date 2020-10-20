@@ -3,3 +3,5 @@ __pychache__
 __pycache__
 configs/__pycache__
 configs/base/__pycache__
+artifacts/modern
+artifacts/traditional
