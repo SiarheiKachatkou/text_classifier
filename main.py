@@ -1,14 +1,10 @@
 import argparse
-import torch.multiprocessing as mp
-import numpy as np
+import os
 import sklearn
 from train_and_test import train_and_test
 from config_from_file import config_from_file
 from dataset import TextDataset
-
-
-def run(i,q, model_fn, dataset):
-    q.put(train_and_test(model_fn, dataset, fold=i))
+from tqdm import tqdm
 
 
 if __name__ == "__main__":
@@ -19,29 +15,20 @@ if __name__ == "__main__":
     cfg = config_from_file(args.config)
     dataset = TextDataset(cfg)
 
-    if cfg.is_debug: #debug multiprocess code is pain
-        for i in range(cfg.nfolds):
-            predictions, labels = train_and_test(cfg, dataset, fold=i)
-    else:
-        n_procs = mp.num_cpus()
-        q=mp.Queue(n_procs)
+    predictions = []
+    labels = []
+    for i in tqdm(range(cfg.nfolds),desc='train_and_test'):
+        preds, labs = train_and_test(cfg, dataset, fold=i)
+        predictions.extend(preds)
+        labels.extend(labs)
 
-        processes = []
-        for rank in range(n_procs):
-            p = mp.Process(target=run, args=(rank,q, cfg, dataset))
-            p.start()
-            processes.append(p)
-        for p in processes:
-            p.join()
+    cm = sklearn.metrics.confusion_matrix(labels, predictions, normalize='all')
+    cm_msg=f' confusion matrix \n {cm} \n'
+    print(cm_msg)
+    acc = sklearn.metrics.accuracy_score(labels, predictions)
+    acc_msg=f' accuracy \n {acc}\n'
+    print(acc_msg)
 
-        predictions = []
-        labels = []
-        for _ in range(n_procs):
-            preds, labs = q.get()
-            predictions.extend(preds)
-            labels.extend(labs)
-
-    cm=sklearn.metrics.confusion_matrix(labels, predictions)
-    print(f' confusion matrix {cm}')
-    acc=sklearn.metrics.accuracy_score(labels, predictions)
-    print(f' accuracy {acc}')
+    with open(os.path.join(cfg.work_dir,'metric.txt'), 'wt') as file:
+        file.write(cm_msg)
+        file.write(acc_msg)

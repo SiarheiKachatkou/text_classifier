@@ -1,4 +1,4 @@
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 import abc
 from abc import abstractmethod
 
@@ -22,6 +22,20 @@ class RandomForestClassifierHead(ClassifierHead):
         super().__init__()
 
         self._cl = RandomForestClassifier(**kwargs)
+
+    def fit(self, features, labels):
+        self._cl.fit(features, labels)
+
+    def predict(self, features):
+        return self._cl.predict(features)
+
+
+class BoostingClassifierHead(ClassifierHead):
+
+    def __init__(self, **kwargs):
+        super().__init__()
+
+        self._cl = GradientBoostingClassifier(**kwargs)
 
     def fit(self, features, labels):
         self._cl.fit(features, labels)
