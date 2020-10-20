@@ -8,21 +8,21 @@ pip install -r requirements.txt\
 
 # Структура репозитория
 
-##configs - файлы конфигураций запуска \
-  ###base - базовые конфиги, из которых составляются более сложные конфигурации \
-  ###eda_config.py- конфигурация для explanatory data analysis \
-  ###train_traditional_config.py - конфигурация для обучения и тестирования традиционного подхода TFID+RandomForest \
-  ###train_modern_config.py - современный подход BERT + SVM
+configs - файлы конфигураций запуска \
+    base - базовые конфиги, из которых составляются более сложные конфигурации \
+    eda_config.py- конфигурация для explanatory data analysis \
+    train_traditional_config.py - конфигурация для обучения и тестирования традиционного подхода TFID+RandomForest \
+    train_modern_config.py - современный подход BERT + Boosting
 
-##data - файлы данных\
+data - файлы данных\
 
-##feature_extractors.py - базовый класс FeatureExtractor и его конкретные реализации TFIDFFeatureExtractor, BERTFeatureExtractor для извлечения признаков текста\
+feature_extractors.py - базовый класс FeatureExtractor и его конкретные реализации TFIDFFeatureExtractor, BERTFeatureExtractor для извлечения признаков текста\
 
-##classifier_heads.py базовый класс ClassifierHead и наследники для классификации текста по извлеченным признакам\
+classifier_heads.py базовый класс ClassifierHead и наследники для классификации текста по извлеченным признакам\
 
-##explanatory_data_analysis.py - скрипт для первичного анализац данных\
+explanatory_data_analysis.py - скрипт для первичного анализац данных\
 
-##main.py - запус тренировки и кросс-валидации модели, конфигурация которой задачется в выбранном конфиге.
+main.py - запус тренировки и кросс-валидации модели, конфигурация которой задачется в выбранном конфиге.
 
 # параметры конфигурации
 
