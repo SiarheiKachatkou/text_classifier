@@ -1,2 +1,5 @@
- confusion matrix [[10 15]
- [ 7 18]] accuracy 0.56
+ confusion matrix 
+ [[0.31391859 0.18608141]
+ [0.19189645 0.30810355]] 
+ accuracy 
+ 0.6220221346839242
