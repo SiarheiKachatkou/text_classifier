@@ -3,7 +3,7 @@ __pychache__
 __pycache__
 configs/__pycache__
 configs/base/__pycache__
-artifacts/modern
+artifacts/modern/*
 !artifacts/modern/metric.txt
-artifacts/traditional
+artifacts/traditional/*
 !artifacts/traditional/metric.txt
