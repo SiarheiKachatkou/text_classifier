@@ -8,8 +8,8 @@ pip install -r requirements.txt\
 
 # Структура репозитория
 
-### configs - файлы конфигураций запуска \
-    ### base - базовые конфиги, из которых составляются более сложные конфигурации \
+configs - файлы конфигураций запуска \
+    base - базовые конфиги, из которых составляются более сложные конфигурации \
     eda_config.py- конфигурация для explanatory data analysis \
     train_traditional_config.py - конфигурация для обучения и тестирования традиционного подхода TFID+RandomForest \
     train_modern_config.py - современный подход BERT + Boosting
