@@ -21,8 +21,8 @@ pip install -r requirements.txt\
 
 # Как запустить
 
-**Первичный анализ данных** python explanatory_data_analysis.py --config=configs/eda_config.py  (конфигурация explonatory_data_analysis в Pycharm)
-**Тренировка традиционной модели** python main.py --config=configs/train_traditional_config.py  (конфигурация traditional в Pycharm)
+**Первичный анализ данных** python explanatory_data_analysis.py --config=configs/eda_config.py  (конфигурация explonatory_data_analysis в Pycharm)\
+**Тренировка традиционной модели** python main.py --config=configs/train_traditional_config.py  (конфигурация traditional в Pycharm)\
 **Тренировка современной модели** python main.py --config=configs/train_modern_config.py  (конфигурация modern в Pycharm)
 
 
